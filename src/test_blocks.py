@@ -63,7 +63,7 @@ class test_block2block_type(unittest.TestCase):
     def test_unordered_correct(self):
         # only hyphens
         h_list = "- something\n- for your body\n- your mind\n- and your soul"
-        self.assertEqual(block_to_block_type(h_list), "unordered_list")  # TODO: fix the bug, ul is read as a paragraph here
+        self.assertEqual(block_to_block_type(h_list), "unordered_list")
         # only asterisks
         a_list = "* a\n* b\n* c"
         self.assertEqual(block_to_block_type(a_list), "unordered_list")

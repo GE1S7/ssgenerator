@@ -184,10 +184,19 @@ def make_hnode(btype, htag, btext)
                 hline_ch = text_to_children(line)
                 hli.append(hline_ch)
             hall_li = ParentNode(tag=htag, children=hli)
-            return(hall_li)
+            return hall_li
 
 
 def text_to_children(text, mdtype):
     # takes a block and it's markdown type and returns a list of html child nodes 
-    chn = text_to_text_nodes(text)
-    return chn
+
+    # convert text into a list of textnodes
+    chn_txt = text_to_text_nodes(text)
+
+    # convert text nodes in the list into html nodes
+    chn_html = []
+    for i in chn_txt:
+        child = i.text_node_to_html_node 
+        chn_html.append(child)
+
+    return chn_html

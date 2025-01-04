@@ -1,1 +1,2 @@
 # ssgenerator
+*.py
