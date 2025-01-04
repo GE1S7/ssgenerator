@@ -74,10 +74,10 @@ def markdown_to_html_node(markdown):
 
 
 def mdtype2htmltag(mdtype):
-    typetag = {"heading":"h", #TODO: headings are numbered: <h1>-<h6> resp. md #
-               "code":"code", #TODO: code blocks should be nested insida a <pre> tag
+    typetag = {"heading":"h",
+               "code":"code",
                "quote":"blockquote",
-               "unordered_list":"ul", #TODO: each list item is surrounded with <li> tag
+               "unordered_list":"ul",
                "ordered_list":"ol",
                "paragraph":"p"
                }
@@ -102,8 +102,6 @@ def mdtype2htmltag(mdtype):
     else:
         raise ValueError("Unrecognized markdown type")
 
-#TODO should "#" after the "# "  be treated as belonging to heading's txt? At least in obsidian this is the case. 
-#TODO no mdformatting wihtin code block (vide obsidian).
 
 def format_block_txt(text, mdtype):
     # TODO: \n \A should not be matched, only what comes after them
@@ -151,7 +149,6 @@ def make_hnode(btype, htag, btext)
             bli = btext.split("\n")
             hli = []
             for line in bli:
-                #TODO: split lines into nodes
                 hline_ch = text_to_children(line)
                 hli.append(hline_ch)
             hall_li = ParentNode(tag=htag, children=hli)
@@ -171,3 +168,5 @@ def text_to_children(text, mdtype):
         chn_html.append(child)
 
     return chn_html
+
+

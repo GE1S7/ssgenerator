@@ -147,3 +147,18 @@ class test_format_block_txt(unittest.TestCase):
         l = "* foo\n* bar"
         fl = format_block_txt(l, "unordered_list")
         self.assertNotEqual(fnl,l)
+
+
+class test_markdown2htmlnode(unittest.TestCase):
+    pass
+
+
+class test_makehnode(unittest.TestCase):
+    def test_noinlinefmt(self):
+        test_node = LeafNode(tag="h1",value="title")
+        hnode = make_hnode("heading", "h1", btext="title")
+        self.assertEqual(hnode, test_node)
+
+class test_text2children(unittest.TestCase):
+    def test_txt2node(self):
+        pass
