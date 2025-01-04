@@ -69,37 +69,8 @@ def markdown_to_html_node(markdown):
 
         allch.append(hnode)
 
-        # making an hnode can be a separate function itself. It could use text_to_children too.
-
-        if btype == "code":
-            hcode = LeafNode(tag=htag, value=btext)
-            hpre = ParentNode(tag="pre", children=[hcode])
-            allnode.children.append(hpre)
-
-        if btype == "heading":
-            # no fancy stuff
-            pass
-
-        if btype == "quote":
-            # no fancy stuff
-            pass
-
-        if btype == "unordered_list" or btype == "ordered_list":
-            bli = btext.split("\n")
-            hli = []
-            for line in bli:
-                hline_ch = text_to_children(line)
-                hli.append(hline_ch)
-            hall_li = ParentNode(tag=htag, children=hli)
-            allnode.append(hall_li)
-            continue
-
-
-        chnodes = text_to_children(btext, btype)
-        
-        hnode = ParentNode(tag=htag, children=chnodes)
-
     allnode = ParentNode("div", allch)
+    return allnode
 
 
 def mdtype2htmltag(mdtype):
