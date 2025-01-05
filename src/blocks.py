@@ -1,5 +1,5 @@
 import re
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 from inline import text_to_text_nodes
 
 def markdown_to_blocks(markdown):
@@ -128,7 +128,7 @@ def format_block_txt(text, mdtype):
     return text
 
 
-def make_hnode(btype, htag, btext)
+def make_hnode(btype, htag, btext):
         if btype == "code":
             # no text2children
             hcode = LeafNode(tag=htag, value=btext)
@@ -155,7 +155,7 @@ def make_hnode(btype, htag, btext)
             return hall_li
 
 
-def text_to_children(text, mdtype):
+def text_to_children(text):
     # takes a block and it's markdown type and returns a list of html child nodes 
 
     # convert text into a list of textnodes
@@ -164,7 +164,7 @@ def text_to_children(text, mdtype):
     # convert text nodes in the list into html nodes
     chn_html = []
     for i in chn_txt:
-        child = i.text_node_to_html_node 
+        child = i.text_node_to_html_node()
         chn_html.append(child)
 
     return chn_html

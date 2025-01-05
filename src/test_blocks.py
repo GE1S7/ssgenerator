@@ -155,10 +155,13 @@ class test_markdown2htmlnode(unittest.TestCase):
 
 class test_makehnode(unittest.TestCase):
     def test_noinlinefmt(self):
-        test_node = LeafNode(tag="h1",value="title")
+        test_chnode = LeafNode(tag="h1",value="title")
+        test_pnode = ParentNode(tag="pre",children=[test_chnode])
         hnode = make_hnode("heading", "h1", btext="title")
-        self.assertEqual(hnode, test_node)
+        self.assertEqual(repr(hnode), repr(test_pnode))
 
 class test_text2children(unittest.TestCase):
-    def test_txt2node(self):
+    def test_normaltxt(self):
+        ntxt = "asdf"
+        children = "[]"
         pass

@@ -50,6 +50,9 @@ class ParentNode(HTMLNode):
         self.tag = tag
         self.children = children
         self.props = props
+
+    def __repr__(self):
+        return(f"HTMLNode({self.tag}, {self.children}, {self.props})")
     
     def to_html(self):
         if self.tag == None:
