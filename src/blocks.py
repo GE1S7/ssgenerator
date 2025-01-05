@@ -137,7 +137,7 @@ def make_hnode(btype, htag, btext):
 
         if btype == "heading":
             chnodes =  text_to_children(btext)
-            hdnode = ParentNode(tag=htag, children=chnodes) 
+            hdnode = LeafNode(tag=htag, value=btext) 
             return hdnode
 
         if btype == "quote":
