@@ -148,14 +148,14 @@ class TestTextToTextNodes(unittest.TestCase):
         i2o2 = text_to_text_nodes(i2)
         self.assertEqual(o2,i2o2)
 
-        i3 = "![link to image](https://i.imgur.com/fJRm4Vk.jpeg)"
+        #TODO fix empty textnode
         o3 = [TextNode("link to image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg")]
-        i2o3 = text_to_text_nodes(i3)
+        i2o3 = text_to_text_nodes("![link to image](https://i.imgur.com/fJRm4Vk.jpeg)")
         self.assertEqual(o3,i2o3)
 
+        #TODO fix empty textnode
         o4 = [TextNode("regular link", TextType.LINK, "https://i.imgur.com/fJRm4Vk.jpeg")]
-        i2o4 = text_to_text_nodes("[regular link](https://i.imgur.com/fJRm4Vk.jpeg)"
-)
+        i2o4 = text_to_text_nodes("[regular link](https://i.imgur.com/fJRm4Vk.jpeg)")
         self.assertEqual(o4,i2o4)
 
 
