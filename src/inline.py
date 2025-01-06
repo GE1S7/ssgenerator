@@ -107,6 +107,7 @@ def text_to_text_nodes(text):
 
     # plus split by imgs n links
     iltn = split_nodes_link(split_nodes_image([btn]))
+    print(f"iltn:       {iltn}")
 
     def sloop(l, d):
         # go through nodes in iltn and split txtnodes by delimiters
@@ -116,7 +117,7 @@ def text_to_text_nodes(text):
             sn = split_nodes_delimiter([n], d, n.text_type)
             # add each of them to the final list
             for i in sn:
-                if i.text != "" and i.text_type !=TextType.IMAGE:
+                if i.text != "" and i.text_type !=TextType.IMAGE and i.text_type != TextType.LINK:
                     fl.append(i)
 
         return fl

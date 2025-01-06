@@ -162,7 +162,7 @@ def make_hnode(btype, htag, btext):
 
 
 def text_to_children(text, li=False):
-    # takes a block and it's markdown type and returns a list of html child nodes 
+    '''takes a block and it's markdown type and returns a list of html child nodes'''
 
     # convert text into a list of textnodes
     print(f"txt2txtnodes0:       {text_to_text_nodes(text)}")

@@ -195,8 +195,14 @@ class test_makehnode(unittest.TestCase):
     
     def test_headingfmt_link(self):
         test_hdnode_l = ParentNode(tag="h1", children=[LeafNode(tag="a",value="title", props="href")])
-        hdnode_l = make_hnode("heading", "h1", btext="(title)[url]")
+        hdnode_l = make_hnode("heading", "h1", btext="[title](url)")
         self.assertEqual(repr(hdnode_l), repr(test_hdnode_l))
+
+    def test_headingfmt_image(self):
+        test_hdnode_l = ParentNode(tag="h1", children=[LeafNode(tag="a",value="title", props="href")])
+        hdnode_l = make_hnode("heading", "h1", btext="![alttext])[https://www.example.com/image.png]")
+        self.assertEqual(repr(hdnode_l), repr(test_hdnode_l))
+
     def test_quotefmt(self):
         pass
 
@@ -205,7 +211,7 @@ class test_makehnode(unittest.TestCase):
         
 
 class test_text2children(unittest.TestCase):
-    def test_normaltxt(self):
-        ntxt = "asdf"
-        children = "[]"
-        pass
+    def test_txt2linknode(self):
+        txt = "[alttext](https://www.example.com)"
+
+

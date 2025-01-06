@@ -58,18 +58,18 @@ class TxtNode2HtmlNode(unittest.TestCase):
 
 
     def test_test_type_link(self):
-        link_node = TextNode("click this!", TextType.LINK)
+        link_node = TextNode("click this!", TextType.LINK, "www.example.com")
         conv_node = link_node.text_node_to_html_node()
 
         self.assertEqual(conv_node.tag, "a")
-        self.assertEqual(conv_node.props, "href")
+        self.assertEqual(conv_node.props, {"href":"www.example.com"})
 
 
     def test_type_image(self):
-        image_node = TextNode("", TextType.IMAGE)
+        image_node = TextNode("description", TextType.IMAGE, "www.example.com/img.png")
         conv_node = image_node.text_node_to_html_node()
         self.assertEqual(conv_node.tag, "img")
-        self.assertEqual(conv_node.props, ['src', 'alt'])
+        self.assertEqual(conv_node.props, {'src':"www.example.com/img.png", 'alt':"description"})
         
 
         

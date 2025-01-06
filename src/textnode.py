@@ -32,10 +32,10 @@ class TextNode:
             return LeafNode("code", self.text)
 
         elif self.text_type == TextType.LINK:
-            return LeafNode("a", self.text, "href")
+            return LeafNode("a", self.text, {"href":self.url})
 
         elif self.text_type == TextType.IMAGE:
-            return LeafNode('img', "", ['src', 'alt'])
+            return LeafNode('img', "", {'src':self.url, 'alt':self.text})
 
         raise ValueError("Invalid text type")
 #TODO add some tests

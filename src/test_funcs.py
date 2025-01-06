@@ -153,9 +153,9 @@ class TestTextToTextNodes(unittest.TestCase):
         i2o3 = text_to_text_nodes(i3)
         self.assertEqual(o3,i2o3)
 
-        i4 = "[regular link](https://i.imgur.com/fJRm4Vk.jpeg)"
         o4 = [TextNode("regular link", TextType.LINK, "https://i.imgur.com/fJRm4Vk.jpeg")]
-        i2o4 = text_to_text_nodes(i4)
+        i2o4 = text_to_text_nodes("[regular link](https://i.imgur.com/fJRm4Vk.jpeg)"
+)
         self.assertEqual(o4,i2o4)
 
 
