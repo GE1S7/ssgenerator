@@ -194,12 +194,12 @@ class test_makehnode(unittest.TestCase):
 
     
     def test_headingfmt_link(self):
-        test_hdnode_l = ParentNode(tag="h1", children=[LeafNode(tag="a",value="title", props="href")])
+        test_hdnode_l = ParentNode(tag="h1", children=[LeafNode(tag="a",value="title", props={"href":"url"})])
         hdnode_l = make_hnode("heading", "h1", btext="[title](url)")
         self.assertEqual(repr(hdnode_l), repr(test_hdnode_l))
 
     def test_headingfmt_image(self):
-        test_hdnode_l = ParentNode(tag="h1", children=[LeafNode(tag="a",value="title", props="href")])
+        test_hdnode_l = ParentNode(tag="h1", children=[LeafNode(tag="img",value="", props={"href":"https://www.example.com/image.png","alt":"alttext"})])
         hdnode_l = make_hnode("heading", "h1", btext="![alttext])[https://www.example.com/image.png]")
         self.assertEqual(repr(hdnode_l), repr(test_hdnode_l))
 
