@@ -141,21 +141,22 @@ def make_hnode(btype, htag, btext):
             return hdnode
 
         if btype == "quote":
-            chnodes = text_to_children(btext)
-            qtnode = ParentNode(tag=htag, children=chnodes)
+            qtnode = LeafNode(tag=htag, value=btext)
             return qtnode
 
         if btype == "unordered_list" or btype == "ordered_list":
             bli = btext.split("\n")
             hli = []
             for line in bli:
-                hline_ch = text_to_children(line)
+                hline_ch = text_to_children(line, li=True)
                 hli.append(hline_ch)
             hall_li = ParentNode(tag=htag, children=hli)
             return hall_li
 
 
-def text_to_children(text):
+
+
+def text_to_children(text, li=False):
     # takes a block and it's markdown type and returns a list of html child nodes 
 
     # convert text into a list of textnodes
@@ -165,8 +166,11 @@ def text_to_children(text):
     chn_html = []
     for i in chn_txt:
         child = i.text_node_to_html_node()
+        if li == True:
+            child.tag = "li"
         chn_html.append(child)
 
+    if len(chn_html) == 1:
+        return chn_html[0]
+
     return chn_html
-
-

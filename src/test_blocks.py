@@ -164,6 +164,18 @@ class test_makehnode(unittest.TestCase):
         cnode = make_hnode("code", "code", "somecode")
         self.assertEqual(repr(cnode), repr(test_cnode))
 
+        test_qnode = LeafNode(tag="blockquote", value="whosaid")
+        qnode = make_hnode("quote", "blockquote", btext="whosaid")
+        self.assertEqual(repr(qnode), repr(test_qnode))
+
+        test_olli = [LeafNode(tag="li", value="first item"), LeafNode(tag="li", value="second item")]
+        test_olnode = ParentNode(tag="ul", children=test_olli)
+        olnode = make_hnode("unordered_list", "ul", "first item\nsecond item")
+        print("\\\\\\" + "test: " + repr(test_olnode) + "\n")
+        print("\\\\\\" + "actual: " + repr(olnode) + "\n")
+        self.assertEqual(repr(olnode), repr(test_olnode))
+        
+
 class test_text2children(unittest.TestCase):
     def test_normaltxt(self):
         ntxt = "asdf"

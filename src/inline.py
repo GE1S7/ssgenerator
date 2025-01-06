@@ -18,16 +18,13 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             if key in node.text and key == delimiter:
                 parted = node.text.partition(delimiter)
                 new_nodes.append(TextNode(parted[0], text_type))
-                print(f"\nparted[0]: {parted[0]}")
 
                 parted2 = parted[2].partition(delimiter)
                 new_nodes.append(TextNode(parted2[0], delimiters[delimiter]))
-                print(f"parted2[0]: {parted2[0]}\n")
                 if parted2[2] != "":
                     new_nodes.append(TextNode(parted2[2], text_type))
                 break
         else:
-            print("boobs")
             new_nodes.append(node)
     return(new_nodes)
 
@@ -61,25 +58,18 @@ def split_nodes_image(old_nodes):
         arglist = re.split(ptrn, node.text)
         imagelist = extract_markdown_images(node.text)
 
-        #print(f"arglist: {arglist},\nimagelist:{imagelist}") 
         arglist = re.split(ptrn, node.text)
-        #print("arglist ", arglist)
         
         i = 0
 
         while i < len(arglist):
-            #print(f"\n\nthe current value of i is {i}\narglist[i]={arglist[i]}")
             if i+1 < len(arglist) and (arglist[i], arglist[i+1]) in imagelist:
-                #print("match")
-                #print(arglist[i])
-                #print(arglist[i+1])
                 new_nodes.append(TextNode(arglist[i], TextType.IMAGE, arglist[i+1]))
                 i += 2
                 continue
             elif arglist[i] != "":
                 new_nodes.append(TextNode(arglist[i], TextType.NORMAL))
             i += 1
-    #print(f"\n NEW NODES: {new_nodes}\n")
     return new_nodes
 
 def split_nodes_link(old_nodes):
@@ -95,25 +85,18 @@ def split_nodes_link(old_nodes):
         arglist = re.split(ptrn, node.text)
         linklist = extract_markdown_links(node.text)
 
-        #print(f"arglist: {arglist},\nlinklist:{linklist}") 
         arglist = re.split(ptrn, node.text)
-        #print("arglist", arglist)
         
         i = 0
 
         while i < len(arglist):
-            #print(f"\n\nthe current value of i is {i}\narglist[i]={arglist[i]}")
             if i+1 < len(arglist) and (arglist[i], arglist[i+1]) in linklist:
-                #print("match")
-                #print(arglist[i])
-                #print(arglist[i+1])
                 new_nodes.append(TextNode(arglist[i], TextType.LINK, arglist[i+1]))
                 i += 2
                 continue
             elif arglist[i] != "":
                 new_nodes.append(TextNode(arglist[i], TextType.NORMAL))
             i += 1
-    #print(f"\n NEW NODES: {new_nodes}\n")
     return new_nodes
 
 def text_to_text_nodes(text):
@@ -141,7 +124,6 @@ def text_to_text_nodes(text):
     f = iltn
     for k in delimiters.keys():
         f = sloop(f,k)
-        print(f)
     
     return f
 
