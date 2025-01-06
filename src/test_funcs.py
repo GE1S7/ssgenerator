@@ -17,11 +17,11 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(new_nodes0, compare0)
 
         node1 = TextNode("This is text with a **bold** word", TextType.NORMAL)
-
-
         new_nodes1 = split_nodes_delimiter([node1], "**", TextType.NORMAL)
         compare1 = [TextNode ("This is text with a ", TextType.NORMAL), TextNode("bold", TextType.BOLD), TextNode(" word", TextType.NORMAL)] 
         self.assertEqual(new_nodes1, compare1)
+
+
 
 class TestExtractMarkdownImages(unittest.TestCase):
     def test_io(self):
@@ -49,7 +49,6 @@ class TestSplitNodesImage(unittest.TestCase):
         n = TextNode("![dog](https://www.imgs.com/shiba_inu.png) this is text with an image", TextType.NORMAL)
         tn = [TextNode("dog", TextType.IMAGE, "https://www.imgs.com/shiba_inu.png"), TextNode(" this is text with an image", TextType.NORMAL)]
         sn = split_nodes_image([n])
-        #print(f"\nnode:   {n}\ntestnode:   {tn}\nsplitnode:    {sn}")
         self.assertEqual(tn, sn)
 
     def test_no_img(self):

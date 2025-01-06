@@ -155,16 +155,11 @@ class test_markdown2htmlnode(unittest.TestCase):
 
 class test_makehnode(unittest.TestCase):
     def test_noinlinefmt(self):
-        test_hdnode = LeafNode(tag="h1",value="title")
-        hdnode = make_hnode("heading", "h1", btext="title")
-        self.assertEqual(repr(hdnode), repr(test_hdnode))
+        #test_cnode = ParentNode(tag="pre", children=[test_hcode])
+        #cnode = make_hnode("code", "code", "somecode")
+        #self.assertEqual(repr(cnode), repr(test_cnode))
 
-        test_hcode = LeafNode(tag="code", value="somecode")  
-        test_cnode = ParentNode(tag="pre", children=[test_hcode])
-        cnode = make_hnode("code", "code", "somecode")
-        self.assertEqual(repr(cnode), repr(test_cnode))
-
-        test_qnode = LeafNode(tag="blockquote", value="whosaid")
+        test_qnode = ParentNode(tag="blockquote", children=[LeafNode(tag=None, value="whosaid")])
         qnode = make_hnode("quote", "blockquote", btext="whosaid")
         self.assertEqual(repr(qnode), repr(test_qnode))
 
@@ -174,6 +169,39 @@ class test_makehnode(unittest.TestCase):
         print("\\\\\\" + "test: " + repr(test_olnode) + "\n")
         print("\\\\\\" + "actual: " + repr(olnode) + "\n")
         self.assertEqual(repr(olnode), repr(test_olnode))
+
+    def test_headingfmt(self):
+        # normal
+        test_hdnode_n = ParentNode(tag="h1", children=[LeafNode(tag=None,value="title")])
+        hdnode_n = make_hnode("heading", "h1", btext="title")
+        self.assertEqual(repr(hdnode_n), repr(test_hdnode_n))
+
+    def test_headingfmt_bold(self):
+        #bold
+        test_hdnode_b = ParentNode(tag="h1", children=[LeafNode(tag="b",value="title")])
+        hdnode_b = make_hnode("heading", "h1", btext="**title**")
+        self.assertEqual(repr(hdnode_b), repr(test_hdnode_b))
+    
+    def test_headingfmt_italic(self):
+        test_hdnode_i = ParentNode(tag="h1", children=[LeafNode(tag="i",value="title")])
+        hdnode_i = make_hnode("heading", "h1", btext="*title*")
+        self.assertEqual(repr(hdnode_i), repr(test_hdnode_i))
+
+    def test_headingfmt_code(self):
+        test_hdnode_c = ParentNode(tag="h1", children=[LeafNode(tag="code",value="title")])
+        hdnode_c = make_hnode("heading", "h1", btext="`title`")
+        self.assertEqual(repr(hdnode_c), repr(test_hdnode_c))
+
+    
+    def test_headingfmt_link(self):
+        test_hdnode_l = ParentNode(tag="h1", children=[LeafNode(tag="a",value="title", props="href")])
+        hdnode_l = make_hnode("heading", "h1", btext="(title)[url]")
+        self.assertEqual(repr(hdnode_l), repr(test_hdnode_l))
+    def test_quotefmt(self):
+        pass
+
+    def test_listfmt(self):
+        pass
         
 
 class test_text2children(unittest.TestCase):

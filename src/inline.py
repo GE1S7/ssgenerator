@@ -116,7 +116,8 @@ def text_to_text_nodes(text):
             sn = split_nodes_delimiter([n], d, n.text_type)
             # add each of them to the final list
             for i in sn:
-                fl.append(i)
+                if i.text != "" and i.text_type !=TextType.IMAGE:
+                    fl.append(i)
 
         return fl
 
