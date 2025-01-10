@@ -199,8 +199,8 @@ class test_makehnode(unittest.TestCase):
         self.assertEqual(repr(hdnode_l), repr(test_hdnode_l))
 
     def test_headingfmt_image(self):
-        test_hdnode_l = ParentNode(tag="h1", children=[LeafNode(tag="img",value="", props={"href":"https://www.example.com/image.png","alt":"alttext"})])
-        hdnode_l = make_hnode("heading", "h1", btext="![alttext])[https://www.example.com/image.png]")
+        test_hdnode_l = ParentNode(tag="h1", children=[LeafNode(tag="img",value="", props={"src":"https://www.example.com/image.png","alt":"alttext"})])
+        hdnode_l = make_hnode("heading", "h1", btext="![alttext](https://www.example.com/image.png)")
         self.assertEqual(repr(hdnode_l), repr(test_hdnode_l))
 
     def test_quotefmt(self):

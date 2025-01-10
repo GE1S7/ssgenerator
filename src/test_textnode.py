@@ -70,7 +70,13 @@ class TxtNode2HtmlNode(unittest.TestCase):
         conv_node = image_node.text_node_to_html_node()
         self.assertEqual(conv_node.tag, "img")
         self.assertEqual(conv_node.props, {'src':"www.example.com/img.png", 'alt':"description"})
-        
+
+        image_node0 = TextNode("alttext", TextType.IMAGE, "https://www.example.com/image.png")
+        test_html_node0 = LeafNode(tag="img",value="", props={"src":"https://www.example.com/image.png","alt":"alttext"})
+        conv_node0 = image_node0.text_node_to_html_node()
+        print(f"conv_node0    =    {conv_node0}\ntest_html_node0    =    {test_html_node0}")
+        self.assertEqual(conv_node0, test_html_node0)
+
 
         
 class TestHTMLNode(unittest.TestCase):

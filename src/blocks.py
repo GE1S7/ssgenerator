@@ -165,9 +165,7 @@ def text_to_children(text, li=False):
     '''takes a block and it's markdown type and returns a list of html child nodes'''
 
     # convert text into a list of textnodes
-    print(f"txt2txtnodes0:       {text_to_text_nodes(text)}")
     chn_txt = text_to_text_nodes(text)
-    print(f"txt2txtnodes:        {chn_txt}")       
 
     # convert text nodes in the list into html nodes
     chn_html = []
@@ -176,6 +174,8 @@ def text_to_children(text, li=False):
         print(f"{i} turned into txtnode2htmlnode:         {child}")
         if li == True:
             child.tag = "li"
-        chn_html.append(child)
+            return child
+    chn_html.append(child)
 
     return chn_html
+

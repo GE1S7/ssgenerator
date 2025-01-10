@@ -44,6 +44,7 @@ class TestSplitNodesImage(unittest.TestCase):
         tn = [TextNode("This is text with an image ", TextType.NORMAL), TextNode("dog", TextType.IMAGE, "https://www.imgs.com/shiba_inu.png")]
         sn = split_nodes_image([n])
         self.assertEqual(tn, sn)
+        print(f"check this out:                     {n}, {tn}, {sn}")
 
     def test_img_txt(self):
         n = TextNode("![dog](https://www.imgs.com/shiba_inu.png) this is text with an image", TextType.NORMAL)
@@ -159,3 +160,7 @@ class TestTextToTextNodes(unittest.TestCase):
         self.assertEqual(o4,i2o4)
 
 
+        o5 = [TextNode("alttext", TextType.IMAGE, "https://www.example.com/image.png")]
+
+        i2o5 = text_to_text_nodes("![alttext](https://www.example.com/image.png)")
+        self.assertEqual(o5, i2o5)
