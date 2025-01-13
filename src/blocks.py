@@ -102,7 +102,6 @@ def mdtype2htmltag(mdtype):
     else:
         raise ValueError("Unrecognized markdown type")
 
-
 def format_block_txt(text, mdtype):
     # TODO: \n \A should not be matched, only what comes after them
     if mdtype == "heading":
@@ -126,7 +125,6 @@ def format_block_txt(text, mdtype):
         text = re.sub(r"\n([0-9]*)(?=\. )", "\n", text)
 
     return text
-
 
 def make_hnode(btype, htag, btext):
         if btype == "code":
@@ -157,9 +155,6 @@ def make_hnode(btype, htag, btext):
                 hli.append(hline_ch)
             hall_li = ParentNode(tag=htag, children=hli)
             return hall_li
-
-
-
 
 def text_to_children(text, li=False):
     '''takes a block and it's markdown type and returns a list of html child nodes'''

@@ -166,8 +166,6 @@ class test_makehnode(unittest.TestCase):
         test_olli = [LeafNode(tag="li", value="first item"), LeafNode(tag="li", value="second item")]
         test_olnode = ParentNode(tag="ul", children=test_olli)
         olnode = make_hnode("unordered_list", "ul", "first item\nsecond item")
-        print("\\\\\\" + "test: " + repr(test_olnode) + "\n")
-        print("\\\\\\" + "actual: " + repr(olnode) + "\n")
         self.assertEqual(repr(olnode), repr(test_olnode))
 
     def test_headingfmt(self):
@@ -206,12 +204,17 @@ class test_makehnode(unittest.TestCase):
     def test_quotefmt(self):
         pass
 
+        test_qnode = ParentNode(tag="blockquote", children=[LeafNode(tag="b", value="who"), LeafNode(tag="None", value=" "), LeafNode(tag="i", value="who")])
+        qnode = make_hnode("quote", "blockquote", btext="**who** *said*")
+        self.assertEqual(repr(qnode), repr(test_qnode))
     def test_listfmt(self):
         pass
         
 
 class test_text2children(unittest.TestCase):
     def test_txt2linknode(self):
-        txt = "[alttext](https://www.example.com)"
-
+        test_olli_b = [LeafNode(tag="li", value="first item"), LeafNode(tag="li", value="second item")]
+        test_olnode_b = ParentNode(tag="ul", children=test_olli_b)
+        olnode_b = make_hnode("unordered_list", "ul", "*first item*\n**second `item`")
+        self.assertEqual(repr(olnode_b), repr(test_olnode_b))
 
