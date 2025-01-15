@@ -1,7 +1,6 @@
 import unittest
 from blocks import *
 
-
 class test_md2blocks(unittest.TestCase):
     def io(self):
         tr = '''# This is a heading
@@ -159,8 +158,8 @@ class test_makehnode(unittest.TestCase):
         #cnode = make_hnode("code", "code", "somecode")
         #self.assertEqual(repr(cnode), repr(test_cnode))
 
-        test_qnode = ParentNode(tag="blockquote", children=[LeafNode(tag=None, value="whosaid")])
-        qnode = make_hnode("quote", "blockquote", btext="whosaid")
+        test_qnode = ParentNode(tag="blockquote", children=[LeafNode(tag=None, value="something")])
+        qnode = make_hnode("quote", "blockquote", btext="something")
         self.assertEqual(repr(qnode), repr(test_qnode))
 
         test_olli = [LeafNode(tag="li", value="first item"), LeafNode(tag="li", value="second item")]
@@ -202,19 +201,28 @@ class test_makehnode(unittest.TestCase):
         self.assertEqual(repr(hdnode_l), repr(test_hdnode_l))
 
     def test_quotefmt(self):
-        pass
-
-        test_qnode = ParentNode(tag="blockquote", children=[LeafNode(tag="b", value="who"), LeafNode(tag="None", value=" "), LeafNode(tag="i", value="who")])
+        test_qnode = ParentNode(tag="blockquote", children=[LeafNode(tag="b", value="who"), LeafNode(tag="None", value=" "), LeafNode(tag="i", value="said")])
         qnode = make_hnode("quote", "blockquote", btext="**who** *said*")
         self.assertEqual(repr(qnode), repr(test_qnode))
-    def test_listfmt(self):
-        pass
-        
 
-class test_text2children(unittest.TestCase):
-    def test_txt2linknode(self):
+        # only the last word is added as a Leafnode. What happens the previous ones?
+        # quotes are correctly recognized by block to block type
+        # the issue is the output of text_to_children
+        # text_to_text_node works as intended
+
+    def test_listfmt(self):
+        # unordered_list
         test_olli_b = [LeafNode(tag="li", value="first item"), LeafNode(tag="li", value="second item")]
         test_olnode_b = ParentNode(tag="ul", children=test_olli_b)
+        #TODO make_hnode ignores inline formatting when used for lists
         olnode_b = make_hnode("unordered_list", "ul", "*first item*\n**second `item`")
         self.assertEqual(repr(olnode_b), repr(test_olnode_b))
+
+        #TODO ordered_list
+
+        
+
+        
+
+
 

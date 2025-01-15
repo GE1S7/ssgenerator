@@ -3,6 +3,13 @@ from inline import split_nodes_delimiter, extract_markdown_images, extract_markd
 from textnode import TextNode, TextType
 import re
 
+class Test_text2node_multi(unittest.TestCase):
+    def test_io_multi(self):
+        i0 = "**who** *said*"
+        o0 = [TextNode("who", TextType.BOLD), TextNode(" ", TextType.NORMAL), TextNode("said", TextType.ITALIC)]
+        self.assertEqual(o0, text_to_text_nodes(i0))
+    
+
 
 class TestSplitNodesDelimiter(unittest.TestCase): 
     def test_input_type(self):
@@ -44,7 +51,7 @@ class TestSplitNodesImage(unittest.TestCase):
         tn = [TextNode("This is text with an image ", TextType.NORMAL), TextNode("dog", TextType.IMAGE, "https://www.imgs.com/shiba_inu.png")]
         sn = split_nodes_image([n])
         self.assertEqual(tn, sn)
-        print(f"check this out:                     {n}, {tn}, {sn}")
+        #print(f"check this out:                     {n}, {tn}, {sn}")
 
     def test_img_txt(self):
         n = TextNode("![dog](https://www.imgs.com/shiba_inu.png) this is text with an image", TextType.NORMAL)
@@ -164,3 +171,4 @@ class TestTextToTextNodes(unittest.TestCase):
 
         i2o5 = text_to_text_nodes("![alttext](https://www.example.com/image.png)")
         self.assertEqual(o5, i2o5)
+

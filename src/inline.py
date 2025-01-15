@@ -108,8 +108,8 @@ def text_to_text_nodes(text):
 
     # plus split by imgs n links
     iltn = split_nodes_link(split_nodes_image([btn]))
-    print(f"split_nodes_image([btn]):      {split_nodes_image([btn])}")
-    print(f"iltn:       {iltn}")
+    #print(f"split_nodes_image([btn]):      {split_nodes_image([btn])}")
+    #print(f"iltn:       {iltn}")
 
     def sloop(l, d):
         # go through nodes in iltn and split txtnodes by delimiters

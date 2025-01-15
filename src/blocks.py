@@ -34,12 +34,10 @@ def block_to_block_type(block):
     elif re.match(r"[0-9]*\. ", block):
         if re.search(r"\n[0-9]*\. ", block) != None:
             line_starters = re.findall(r"(?:\n|\A)([0-9]*)(?=\. )", block) 
-            print(f"hi! these are your linestarters: {line_starters}")
             i = 1
             ordered = True
             
             while i <= len(line_starters):
-                print(int(i))
                 if int(i) == int(i-1) + 1:
                     ordered = True
                 else:
@@ -135,15 +133,13 @@ def make_hnode(btype, htag, btext):
 
         if btype == "heading":
             chnodes =  text_to_children(btext)
-            print(f"chnodes:      {chnodes}")
-            #if type(chnodes) == list:
             hdnode = ParentNode(tag=htag, children=chnodes)
-            #else: 
-            #hdnode = LeafNode(tag=htag, value=btext) 
             return hdnode
 
         if btype == "quote":
             chnodes = text_to_children(btext)
+            print(f"quote raw text: {btext}")
+            print(f"quotetxt to children:   {chnodes}")
             qtnode = ParentNode(tag=htag, children=chnodes)
             return qtnode
 
@@ -159,18 +155,17 @@ def make_hnode(btype, htag, btext):
 def text_to_children(text, li=False):
     '''takes a block and it's markdown type and returns a list of html child nodes'''
 
+
     # convert text into a list of textnodes
     chn_txt = text_to_text_nodes(text)
-
+    
     # convert text nodes in the list into html nodes
     chn_html = []
     for i in chn_txt:
         child = i.text_node_to_html_node()
-        print(f"{i} turned into txtnode2htmlnode:         {child}")
         if li == True:
             child.tag = "li"
             return child
-    chn_html.append(child)
+        chn_html.append(child)
 
     return chn_html
-
