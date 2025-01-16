@@ -9,7 +9,8 @@ def markdown_to_blocks(markdown):
     # remove any "empty" blocks due to excessive newlines
 
     blocks = []
-    for i in list(map(strip, markdown.split("\n\n"))):
+    for i in  markdown.split("\n\n"):
+        i.strip()
         if i == "\n":
             continue
         blocks.append(i)
@@ -59,7 +60,7 @@ def markdown_to_html_node(markdown):
 
     for block in bs:
         btype = block_to_block_type(block)
-        htag = mdtype2htmltag(btype)
+        htag = mdtype2htmltag(btype, block)
 
         btext = format_block_txt(block, btype)
 
@@ -68,10 +69,11 @@ def markdown_to_html_node(markdown):
         allch.append(hnode)
 
     allnode = ParentNode("div", allch)
+    print(allnode)
     return allnode
 
 
-def mdtype2htmltag(mdtype):
+def mdtype2htmltag(mdtype, block):
     typetag = {"heading":"h",
                "code":"code",
                "quote":"blockquote",
@@ -84,8 +86,9 @@ def mdtype2htmltag(mdtype):
         if mdtype == "heading":
             # count hashes
             hn = 0
-            for i in mdtype:
-                if  "#":
+            #TODO it shouldn't count characters in text not in type...
+            for i in block:
+                if  i == "#":
                     hn += 1
                 else:
                     break
@@ -101,7 +104,6 @@ def mdtype2htmltag(mdtype):
         raise ValueError("Unrecognized markdown type")
 
 def format_block_txt(text, mdtype):
-    # TODO: \n \A should not be matched, only what comes after them
     if mdtype == "heading":
         text = re.sub(r"\A(#{1,6} )", "", text) 
 
@@ -125,32 +127,33 @@ def format_block_txt(text, mdtype):
     return text
 
 def make_hnode(btype, htag, btext):
-        if btype == "code":
-            # no text2children
-            hcode = LeafNode(tag=htag, value=btext)
-            hpre = ParentNode(tag="pre", children=[hcode])
-            return hpre
+    '''turn text of given mdtype to htmlnode with a given tag'''
+    if btype == "code":
+        # no text2children
+        hcode = LeafNode(tag=htag, value=btext)
+        hpre = ParentNode(tag="pre", children=[hcode])
+        return hpre
 
-        if btype == "heading":
-            chnodes =  text_to_children(btext)
-            hdnode = ParentNode(tag=htag, children=chnodes)
-            return hdnode
+    if btype == "heading":
+        chnodes =  text_to_children(btext)
+        hdnode = ParentNode(tag=htag, children=chnodes)
+        return hdnode
 
-        if btype == "quote":
-            chnodes = text_to_children(btext)
-            print(f"quote raw text: {btext}")
-            print(f"quotetxt to children:   {chnodes}")
-            qtnode = ParentNode(tag=htag, children=chnodes)
-            return qtnode
+    if btype == "quote":
+        chnodes = text_to_children(btext)
+        print(f"quote raw text: {btext}")
+        print(f"quotetxt to children:   {chnodes}")
+        qtnode = ParentNode(tag=htag, children=chnodes)
+        return qtnode
 
-        if btype == "unordered_list" or btype == "ordered_list":
-            bli = btext.split("\n")
-            hli = []
-            for line in bli:
-                hline_ch = text_to_children(line, li=True)
-                hli.append(hline_ch)
-            hall_li = ParentNode(tag=htag, children=hli)
-            return hall_li
+    if btype == "unordered_list" or btype == "ordered_list":
+        bli = btext.split("\n")
+        hli = []
+        for line in bli:
+            hline_ch = text_to_children(line, li=True)
+            hli.append(hline_ch)
+        hall_li = ParentNode(tag=htag, children=hli)
+        return hall_li
 
 def text_to_children(text, li=False):
     '''takes a block and it's markdown type and returns a list of html child nodes'''
