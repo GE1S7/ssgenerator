@@ -163,9 +163,12 @@ def text_to_children(text, li=False):
     chn_html = []
     for i in chn_txt:
         child = i.text_node_to_html_node()
-        if li == True:
-            child.tag = "li"
-            return child
+        # if li == True:
+        #    child.tag = "li"
+        #    return child
         chn_html.append(child)
 
+    
+    if li == True:
+        return HTMLNode(tag="li",value=None,children=chn_html)
     return chn_html

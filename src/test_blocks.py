@@ -212,10 +212,10 @@ class test_makehnode(unittest.TestCase):
 
     def test_listfmt(self):
         # unordered_list
-        test_olli_b = [LeafNode(tag="li", value="first item"), LeafNode(tag="li", value="second item")]
+        test_olli_b = [HTMLNode(tag="li", value=None, children=[LeafNode(tag="i",value="first item")]), HTMLNode(tag="li", value=None, children=[LeafNode(tag="b", value="second"), LeafNode(tag="code",value="item")])]
         test_olnode_b = ParentNode(tag="ul", children=test_olli_b)
         #TODO make_hnode ignores inline formatting when used for lists
-        olnode_b = make_hnode("unordered_list", "ul", "*first item*\n**second `item`")
+        olnode_b = make_hnode("unordered_list", "ul", "*first item*\n**second**`item`")
         self.assertEqual(repr(olnode_b), repr(test_olnode_b))
 
         #TODO ordered_list
