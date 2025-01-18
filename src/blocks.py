@@ -24,9 +24,11 @@ def block_to_block_type(block):
     elif re.match("```", block) != None and re.search(r"```$", block):
         return "code" 
 
-    elif re.match(">", block) != None:
-        if re.search("\n(?!>)", block) != None:
-            return "quote"
+    elif re.match("^(?!>)", block, re.MULTILINE) == None:
+        #TODO something's not right here
+        #print(block)
+        #if re.search(r"\n(?!>)", block) != None:
+        return "quote"
         
     elif re.match(r"^([\*\-] )", block):
         if re.search(r"\n(?![\*\-])", block) == None:
@@ -48,6 +50,7 @@ def block_to_block_type(block):
             if ordered == True:
                 return "ordered_list"
                 
+
     else:
         return "paragraph"
 
@@ -101,6 +104,7 @@ def mdtype2htmltag(mdtype, block):
         return htype
 
     else:
+        print(f"mdtype:{mdtype}\nblock:{block}")
         raise ValueError("Unrecognized markdown type")
 
 def format_block_txt(text, mdtype):
