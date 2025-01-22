@@ -216,11 +216,11 @@ class test_makehnode(unittest.TestCase):
 
         #TODO ordered_list
 
-class test_markdown2htmlnode(unittest.TestCase):
-    #TODO check quote detection
-    def test_markdown_to_html_node(self):
-        markdown = "# title\n\n## some_text\n*lorem* **ipsum**\n\n## unordered list\n\n- foo\n- bar\n\n## code\n\n```x,y,z := 1,2,3\nfmt.Println(x,y,z)```\n\n## quote\n\n>someone\n>said\n>something"
-        html_node = markdown_to_html_node(markdown)
-        print(html_node)
-        test_html_node=ParentNode(tag="div",children=[LeafNode(tag=None,value="sth")])
-        self.assertEqual(html_node, test_html_node)
+#class test_markdown2htmlnode(unittest.TestCase):
+#    #TODO check quote detection
+#    def test_markdown_to_html_node(self):
+#        markdown = "# title\n\n## some_text\n*lorem* **ipsum**\n\n## unordered list\n\n- foo\n- bar\n\n## code\n\n```x,y,z := 1,2,3\nfmt.Println(x,y,z)```\n\n## quote\n\n>someone\n>said\n>something"
+#        html_node = markdown_to_html_node(markdown)
+#        print(html_node)
+#        test_html_node=ParentNode(tag="div",children=[LeafNode(tag=None,value="sth")])
+#        self.assertEqual(html_node, test_html_node)

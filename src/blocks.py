@@ -120,7 +120,7 @@ def format_block_txt(text, mdtype):
         text = re.sub(r"\n>", "\n", text)
 
     elif mdtype == "unordered_list":
-        text = re.sub("^([\*\-] )", "", text)
+        text = re.sub(r"^([\*\-] )", "", text)
         text = text.replace ("\n* ", "\n")
         text = text.replace ("\n- ", "\n")
 
