@@ -11,6 +11,7 @@ def copy_dir(src, dst):
         shutil.rmtree(dst)
 
     os.mkdir(dst)
+    print(f"created: {dst}")
 
     # list src entry names
     names = os.listdir(src)
@@ -22,7 +23,9 @@ def copy_dir(src, dst):
         # copy files
         if os.path.isfile(src_entry):
             shutil.copy(src_entry, dst_entry)
+            print(f"copied: {name} from {src} to {dst}")
 
         else:
         # copy folders recursively
             copy_dir(src_entry, dst_entry)
+
