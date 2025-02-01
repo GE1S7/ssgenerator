@@ -1,0 +1,15 @@
+import re
+
+def extract_title(markdown):
+    '''extract h1 header from markdown file'''
+
+    h1_ptrn = r"^# .*"
+    h1_search = re.findall(h1_ptrn, markdown)
+
+    if h1_search != None:
+        return h1_search[0].strip(" #")
+
+    else:
+        raise Exception("no h1 header")
+
+print(extract_title("# title    \n"))
