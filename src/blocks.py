@@ -67,6 +67,7 @@ def markdown_to_html_node(markdown):
         htag = mdtype2htmltag(btype, block)
 
         btext = format_block_txt(block, btype)
+        print(f"btext: {btext}")
 
         hnode = make_hnode(btype, htag, btext)
 
@@ -108,12 +109,12 @@ def mdtype2htmltag(mdtype, block):
         raise ValueError("Unrecognized markdown type")
 
 def format_block_txt(text, mdtype):
+    print(f"mdtype: {mdtype}, text: {text}")
     if mdtype == "heading":
         text = re.sub(r"\A(#{1,6} )", "", text) 
 
     elif mdtype == "code":
-        text = text.removeprefix("```")
-        text = text.removesuffix("```")
+        text = re.sub(r"^```|```$", "", text)
         
     elif mdtype == "quote":
         text = re.sub(r"^>", "", text)
@@ -127,12 +128,12 @@ def format_block_txt(text, mdtype):
     elif mdtype == "ordered_list": 
         text = re.sub(r"\A([0-9]*). ", "", text)
         text = re.sub(r"\n([0-9]*). ", "\n", text)
-        print(text)
 
     return text
 
 def make_hnode(btype, htag, btext):
     '''turn text of given mdtype to htmlnode with a given tag'''
+    print(f"btext: {btext}")
     if btype == "code":
         # no text2children
         hcode = LeafNode(tag=htag, value=btext)
@@ -161,13 +162,20 @@ def make_hnode(btype, htag, btext):
         hall_li = ParentNode(tag=htag, children=hli)
         return hall_li
 
+    if btype == "paragraph":
+        chnodes = text_to_children(btext)
+        pnode = ParentNode(tag=htag, children=chnodes)
+        return pnode
+
 def text_to_children(text, li=False):
-    '''takes a block and it's markdown type and returns a list of html child nodes'''
+    '''takes a block and returns a list of html child nodes'''
+
+    print(f"text: {text}")
 
 
     # convert text into a list of textnodes
     chn_txt = text_to_text_nodes(text)
-    print(chn_txt)
+    print(f"chn_text: {chn_txt}")
     
     # convert text nodes in the list into html nodes
     chn_html = []
@@ -179,7 +187,7 @@ def text_to_children(text, li=False):
         chn_html.append(child)
 
     
-    print(chn_html)
+    print(f"chn {chn_html}")
     if li == True:
-        return HTMLNode(tag="li",value=None,children=chn_html)
+        return ParentNode(tag="li",children=chn_html)
     return chn_html

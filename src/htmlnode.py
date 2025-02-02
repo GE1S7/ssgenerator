@@ -65,11 +65,8 @@ class ParentNode(HTMLNode):
         else:
             parent_conv = ""
             for child in self.children:
-                print(f"\n{child}\n")
-                try:
-                    parent_conv += child.to_html() 
-                except:
-                    raise ValueError(f"{child} is of type None")
+                print(f"child: {child}\n")
+                parent_conv += child.to_html() 
         if self.props == None:
             return f"<{self.tag}>{parent_conv}</{self.tag}>"
         else:
