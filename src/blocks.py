@@ -98,7 +98,7 @@ def mdtype2htmltag(mdtype, block):
                     break
             if hn == 0:
                 raise ValueError("Not a heading")
-            htype = f"<h{hn}>"
+            htype = f"h{hn}"
 
         else:
             htype = typetag[mdtype]

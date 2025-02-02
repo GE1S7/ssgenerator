@@ -40,7 +40,7 @@ def generate_page(from_path, template_path, dest_path):
         file.write(template)
         file.close()
 
-    os.system('lynx dest_path')
+    os.system(f'lynx {dest_path}')
 
 
 
