@@ -15,6 +15,7 @@ def markdown_to_blocks(markdown):
             continue
         blocks.append(i)
 
+    print(blocks)
     return blocks
 
 def block_to_block_type(block):
@@ -72,7 +73,6 @@ def markdown_to_html_node(markdown):
         allch.append(hnode)
 
     allnode = ParentNode("div", allch)
-    print(allnode)
     return allnode
 
 
@@ -125,8 +125,9 @@ def format_block_txt(text, mdtype):
         text = text.replace ("\n- ", "\n")
 
     elif mdtype == "ordered_list": 
-        text = re.sub(r"\A([0-9]*)(?=\. )", "", text)
-        text = re.sub(r"\n([0-9]*)(?=\. )", "\n", text)
+        text = re.sub(r"\A([0-9]*). ", "", text)
+        text = re.sub(r"\n([0-9]*). ", "\n", text)
+        print(text)
 
     return text
 
@@ -152,6 +153,7 @@ def make_hnode(btype, htag, btext):
 
     if btype == "unordered_list" or btype == "ordered_list":
         bli = btext.split("\n")
+        print(bli)
         hli = []
         for line in bli:
             hline_ch = text_to_children(line, li=True)
@@ -165,6 +167,7 @@ def text_to_children(text, li=False):
 
     # convert text into a list of textnodes
     chn_txt = text_to_text_nodes(text)
+    print(chn_txt)
     
     # convert text nodes in the list into html nodes
     chn_html = []
@@ -176,6 +179,7 @@ def text_to_children(text, li=False):
         chn_html.append(child)
 
     
+    print(chn_html)
     if li == True:
         return HTMLNode(tag="li",value=None,children=chn_html)
     return chn_html
