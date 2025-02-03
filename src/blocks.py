@@ -117,8 +117,8 @@ def format_block_txt(text, mdtype):
         text = re.sub(r"^```|```$", "", text)
         
     elif mdtype == "quote":
-        text = re.sub(r"^>", "", text)
-        text = re.sub(r"\n>", "\n", text)
+        text = re.sub(r"^> *", "", text)
+        text = re.sub(r"\n> *", "\n", text)
 
     elif mdtype == "unordered_list":
         text = re.sub(r"^([\*\-] )", "", text)
@@ -146,6 +146,7 @@ def make_hnode(btype, htag, btext):
         return hdnode
 
     if btype == "quote":
+        btext.strip()
         chnodes = text_to_children(btext)
         print(f"quote raw text: {btext}")
         print(f"quotetxt to children:   {chnodes}")

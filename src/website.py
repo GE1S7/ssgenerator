@@ -40,10 +40,18 @@ def generate_page(from_path, template_path, dest_path):
         file.write(template)
         file.close()
 
-    os.system(f'lynx {dest_path}')
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    entries = os.listdir(dir_path_content)
+    for entry in entries:
+        epath = os.path.join(dir_path_content, entry)
+        edst = os.path.join(dest_dir_path, "index.html")
+        if os.path.isfile(epath):
+            generate_page(epath, template_path, edst)
+        else:
+          new_src = os.path.join(dir_path_content,entry)
+          new_dst = os.path.join(dest_dir_path,entry)
+          os.mkdir(new_dst)
+          generate_pages_recursive(new_src, template_path, new_dst)
 
 
-
-
-    #TODO Write the new full HTML page to a file at dest_path. Be sure to create any necessary directories if they don't exist.
 
